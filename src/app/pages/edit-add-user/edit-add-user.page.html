@@ -1,0 +1,159 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{pagetitle}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item style="text-align: center;">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-label>Form User</ion-label>
+      <ion-button *ngIf="this.pagetitle!='ADD USER'" fill="outline" (click)="this.deleteUser()" slot="end">Delete</ion-button>
+    </ion-item>
+  
+    <ion-card-content>
+
+      <form [formGroup]="form" (ngSubmit)="this.sendForm()">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div style="text-align: center;">
+                
+              </div>
+            </ion-col>
+            <ion-col>
+              <div style="text-align: center;">
+                <ion-avatar style="margin: 0 auto;">
+                  <img src="{{this.image}}">
+                </ion-avatar>
+                <div *ngIf="!this.isAndroid()">
+                  <mat-form-field>
+                    <ngx-mat-file-input #fileIm formControlName="file" placeholder="Avatar" [accept]="'image/*'" (change)="this.selectAvatar()">
+                    </ngx-mat-file-input>
+                    <mat-icon *ngIf="(this.image==this.defaultImage)" matSuffix>account_circle</mat-icon>
+                    <button mat-icon-button matSuffix *ngIf="(this.image!=this.defaultImage)" (click)="fileIm.clear($event);this.clearImage()">
+                      <mat-icon matSuffix>clear</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+                <div *ngIf="this.isAndroid()">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <ion-icon name="image-outline" (click)="this.takePhotoMovil(0)"></ion-icon>
+                      </ion-col>
+                      <ion-col>
+                        <ion-icon name="camera-outline" (click)="this.takePhotoMovil(1)"></ion-icon>
+                      </ion-col>
+                      <ion-col>
+                        <ion-icon name="close-outline"(click)="this.clearImage()"></ion-icon>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </div>
+              </div>
+            </ion-col><ion-col>
+              <div style="text-align: center;">
+                
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div style="text-align: center;">
+                
+              </div>
+            </ion-col>
+            <ion-col>
+              <div style="text-align: center;">
+                <ion-item>
+                  <ion-input formControlName="email" type="email"  placeholder="Email"></ion-input>
+                </ion-item>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div style="text-align: center;">
+                
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div style="text-align: center;">
+                <ion-item>
+                  <ion-input formControlName="phone" type="tel"  placeholder="Phone"></ion-input>
+                </ion-item>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div style="text-align: center;">
+                <ion-item>
+                  <ion-input formControlName="name" type="text" placeholder="Name"></ion-input>
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div style="text-align: center;">
+                <ion-item>
+                  <ion-input formControlName="adress" type="email" placeholder="Adress"></ion-input>
+                </ion-item>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <ion-item>
+                  <ion-input formControlName="passW" [type]="this.typePassWord" placeholder="Password"></ion-input>
+                  <a class="type-toggle" (click)="this.changePasswordType()">
+                    <ion-icon slot="end" [class]="this.typeClassIconPass" [name]="this.iconPassW"></ion-icon>
+                 </a>
+                 
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div style="text-align: center;">
+              
+              </div>
+            </ion-col>
+            <ion-col>
+              <div style="text-align: center;">
+                <ion-item>
+                  <ion-label>Active</ion-label>
+                  <ion-checkbox formControlName="act" slot="end" ></ion-checkbox>
+                </ion-item>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div style="text-align: center;">
+        
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div style="text-align: center;">
+                <ion-button *ngIf="this.pagetitle!='ADD USER'" fill="outline" type="submit" [disabled]="!form.valid">EDIT</ion-button>
+                <ion-button *ngIf="this.pagetitle=='ADD USER'" fill="outline" type="submit" [disabled]="!form.valid">ADD</ion-button>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div style="text-align: center;">
+                <ion-button fill="outline" (click)="this.Return()">Return</ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+      
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

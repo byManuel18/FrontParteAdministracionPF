@@ -1,0 +1,11 @@
+{
+
+    "/**":{
+        "target":"https://apiproyectofinal-regtiend.herokuapp.com/",
+        "changeOrigin":true,
+        "secure":false,
+        "logLevel":"debug",
+        "apikey":"830312c7-7f3c-4ec4-9e02-27e83bb70688"
+    }
+
+}

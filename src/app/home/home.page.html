@@ -1,20 +1,95 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu side="start" content-id="main-content">
+  <ion-header>
+    <ion-toolbar translucent>
+      <ion-title>Ajustes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content style="text-align: center !important;">
+  
+    
+  </ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        USERS
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+  <ion-content [fullscreen]="true">
+    <ion-refresher slot="fixed" (ionRefresh)="this.Refres($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="getRecord(null)">
+      <ion-fab-button>
+        <ion-icon name="person-add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-icon name="{{this.button_order}}" slot="start" (click)="this.ClickButtoOrder()"></ion-icon>
+            <ion-label>Searchs</ion-label>
+            <ion-select placeholder="Select One" (ionChange)="this.selectButton($event)">
+              <ion-select-option value="nothing">Nothing</ion-select-option>
+              <ion-select-option value="name">Name</ion-select-option>
+              <ion-select-option value="email">Email</ion-select-option>
+              <ion-select-option value="phone">Phone</ion-select-option>
+              <ion-select-option value="uid">Uid</ion-select-option>
+            </ion-select>
+            
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-searchbar id="searchbar" [placeholder]="typesearch"  [disabled]="disableSearch" (ionChange)="this.onChangeSearchBar($event)"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <table mat-table [dataSource]="dataSource" align="center" class="mat-elevation-z8">
+      <caption>USERS</caption>
+
+      <ng-container matColumnDef="uid">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center !important;"> UID </th>
+        <td mat-cell *matCellDef="let user"> {{user.uid}} </td>
+      </ng-container>
+      <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center !important;"> AVATAR </th>
+        <td mat-cell *matCellDef="let user"> 
+          <ion-avatar style="margin: 0 auto;">
+            <img id=imagen *ngIf="user.avatar!=''" src="{{user.avatar}}" class="avatar h-8 w-8 align-middle">
+            <img id=imagen *ngIf="user.avatar==''" src="../../assets/noimage.png" class="avatar h-8 w-8 align-middle">
+          </ion-avatar>
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="gmail">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center !important;"> GMAIL </th>
+        <td mat-cell *matCellDef="let user"> {{user.gmail}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center !important;"> NAME </th>
+        <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center !important;"> PHONE </th>
+        <td mat-cell *matCellDef="let user"> {{user.phone}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
+  </table>
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="changePaginator($event)" showFirstLastButtons="true">
+  </mat-paginator>
+  </ion-content>
+</div>
